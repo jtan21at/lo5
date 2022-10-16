@@ -12,69 +12,120 @@ public class SymbolGrid {
 //     starting at each cell using the findPathsAt() method.
 //
 //      Cell
-        list <Cell> mypath=new ArrayList<Cell>();
+        List <Cell> mypath=new ArrayList<Cell>();
+        int index=0;
+        int mark_path=0;
+        char temp=0;
+
         for (int i=0;i< grid.length;i++){
-            for (int j=0;i<grid[i].length;j++){
-                int index=0;
+//            if (index==4) break;
+            for (int j=0;j<grid[i].length;j++){
 
-                for (int k=0;i< sequence.length;j++)
-                     {if (grid[i][j]==sequence[k]){
-                         Cell mycell=new Cell(i,j);
-                         sequence[k]=0;
-                         mypath.add(mycell);
-                         findPathsAt(grid,mycel,mypath,index+1);
 
-                     }
+                if (grid[i][j]==sequence[index]){
+                    index=0;
+                        Cell mycell=new Cell(i,j);
 
-                }
+                        mypath.add(mycell);
+
+                        findPathsAt(grid,mycell,mypath,sequence,index+1);
+
+//                         sequence[mark_path]=temp;
+//                for (int k=0;k< sequence.length;k++)
+//                     {if (grid[i][j]==sequence[k]){
+//                         Cell mycell=new Cell(i,j);
+//
+//                         sequence[k]=0;
+//                         mark_path=k;
+////                         temp=sequence[k];
+//                         mypath.add(mycell);
+//
+//                         findPathsAt(grid,mycell,mypath,sequence,index+1);
+//                         sequence[mark_path]=temp;
+//
+//                     }
+//
+               }
+//                if (index>3) break;
 
             }
-        };
+//            if (index>3) break;
+        }
         System.out.println("\n--- finished searching");
     }
+
     // TO DO:
 //     Implement recursive method with backtracking
 //
 //     NOTE: You may change the list of parameters here
     private static void findPathsAt(char[][] grid, Cell cell, List<Cell> path, char[] sequence, int index) {
-        if
-        for (int k=0;k< sequence.length;k++){
-        if (grid[cell.r][cell.c]==sequence[k]{
-
-          Cell mycell=new Cell(i,j);
-                         sequence[k]=index+1;
-                         mypath.add(mycell);
-
-        findPathsAt(char[][] grid, mycell,  path,  sequence,  index+1) ;
-        }
-
-        }
-         if (index == path.length) {
-            System.out.println(path);
+        if (index > 3) {
+            System.out.println("find one");
+            for (Cell c:path) System.out.print(c);
             return;
         }
-         int r=i;
-         int c=j;
-         int max_c=grid[r].length;
-         int max_r=grid.length;
-        if (r-1< grid.length&&r-1>0&&c>0&&c<max_c)
-        findPathsAt(grid, new Cell(cell.r - 1, cell.c), path, sequence, index + 1);
-        if (r+1< grid.length&&r-1>0&&c>0&&c<max_c)
-        findPathsAt(grid, new Cell(cell.r + 1, cell.c), path, sequence, index + 1);
+        int mark = 0;
+        char temp = 0;
+//        for (int k=0;k< sequence.length;k++){
+//        if (grid[cell.r][cell.c]==sequence[k]) {
+//
+//            Cell mycell = new Cell(cell.r, cell.c);
+//            temp = sequence[k];
+//            mark = k;
+//            sequence[k] = 0;
+//            path.add(mycell);
+//        }
+        if (grid[cell.r][cell.c] == sequence[index]) {
 
-        if(r>0&&r<max_c&&c-1>0&&c-1<max_c)
-        findPathsAt(grid, new Cell(cell.r, cell.c - 1), path, sequence, index + 1);
-        if(r>0&&r<max_c&&c+1>0&&c+1<max_c)
-        findPathsAt(grid, new Cell(cell.r, cell.c + 1), path, sequence, index + 1);
-        if(r+1>0&&r+1<max_c&&c+1>0&&c+1<max_c)
-        findPathsAt(grid, new Cell(cell.r+1, cell.c + 1), path, sequence, index + 1);
-        if(r-1>0&&r-1<max_c&&c-1>0&&c-1<max_c)
-            findPathsAt(grid, new Cell(cell.r-1, cell.c - 1), path, sequence, index + 1);
-        if(r-1>0&&r-1<max_c&&c+1>0&&c+1<max_c)
-            findPathsAt(grid, new Cell(cell.r-1, cell.c + 1), path, sequence, index + 1);
-        if(r+1>0&&r+1<max_c&&c-1>0&&c-1<max_c)
-            findPathsAt(grid, new Cell(cell.r+1, cell.c - 1), path, sequence, index + 1);
-        path.remove(path.size() - 1); // backtrack
+            Cell mycell = new Cell(cell.r, cell.c);
+//         temp = sequence[k];
+//         mark = k;
+//         sequence[k] = 0;
+            path.add(mycell);
+
+        System.out.println(index);
+
+
+//        findPathsAt(char[][] grid, mycell,  path,  sequence,  index+1) ;
+//        }
+//
+//        }
+        if (index > 3) {
+            System.out.println("find one");
+           for (Cell c:path) System.out.print(c);
+
+//            System.exit(index);
+            return;
+        }
+
+
+        int r = cell.r;
+        int c = cell.c;
+        int max_c = grid[r].length;
+        int max_r = grid.length;
+        int p_r = path.get(index - 1).r;
+        int p_c = path.get(index - 1).c;
+        if (r - 1 < grid.length && r - 1 > 0 && c > 0 && c <= max_c && (r - 1 != p_r || c != p_c))
+            findPathsAt(grid, new Cell(cell.r - 1, cell.c), path, sequence, index + 1);
+        if (r + 1 < grid.length && r + 1 > 0 && c > 0 && c <= max_c && (r + 1 != p_r || c != p_c))
+            findPathsAt(grid, new Cell(cell.r + 1, cell.c), path, sequence, index + 1);
+
+        if (r > 0 && r < max_r && c - 1 > 0 && c - 1 <= max_c && (r != p_r || c - 1 != p_c))
+            findPathsAt(grid, new Cell(cell.r, cell.c - 1), path, sequence, index + 1);
+        if (r > 0 && r < max_r && c + 1 > 0 && c + 1 <= max_c && (r != p_r || c + 1 != p_c))
+            findPathsAt(grid, new Cell(cell.r, cell.c + 1), path, sequence, index + 1);
+        if (r + 1 > 0 && r + 1 < max_r && c + 1 > 0 && c + 1 <= max_c && (r+1 != p_r || c + 1 != p_c))
+            findPathsAt(grid, new Cell(cell.r + 1, cell.c + 1), path, sequence, index + 1);
+        if (r - 1 > 0 && r - 1 < max_r && c - 1 > 0 && c - 1 <= max_c && (r-1 != p_r || c - 1 != p_c))
+            findPathsAt(grid, new Cell(cell.r - 1, cell.c - 1), path, sequence, index + 1);
+        if (r - 1 > 0 && r - 1 < max_r && c + 1 > 0 && c + 1 <= max_c && (r-1 != p_r || c + 1 != p_c))
+            findPathsAt(grid, new Cell(cell.r - 1, cell.c + 1), path, sequence, index + 1);
+        if (r + 1 > 0 && r + 1 < max_r && c - 1 > 0 && c - 1 <=max_c && (r+1 != p_r || c - 1 != p_c))
+            findPathsAt(grid, new Cell(cell.r + 1, cell.c - 1), path, sequence, index + 1);
+        path.remove(index);
+//        sequence[mark] = temp;// backtrack
+    }
+
 
 
     }
