@@ -49,6 +49,32 @@ public class SymbolGrid {
         }
 
         }
+         if (index == path.length) {
+            System.out.println(path);
+            return;
+        }
+         int r=i;
+         int c=j;
+         int max_c=grid[r].length;
+         int max_r=grid.length;
+        if (r-1< grid.length&&r-1>0&&c>0&&c<max_c)
+        findPathsAt(grid, new Cell(cell.r - 1, cell.c), path, sequence, index + 1);
+        if (r+1< grid.length&&r-1>0&&c>0&&c<max_c)
+        findPathsAt(grid, new Cell(cell.r + 1, cell.c), path, sequence, index + 1);
+
+        if(r>0&&r<max_c&&c-1>0&&c-1<max_c)
+        findPathsAt(grid, new Cell(cell.r, cell.c - 1), path, sequence, index + 1);
+        if(r>0&&r<max_c&&c+1>0&&c+1<max_c)
+        findPathsAt(grid, new Cell(cell.r, cell.c + 1), path, sequence, index + 1);
+        if(r+1>0&&r+1<max_c&&c+1>0&&c+1<max_c)
+        findPathsAt(grid, new Cell(cell.r+1, cell.c + 1), path, sequence, index + 1);
+        if(r-1>0&&r-1<max_c&&c-1>0&&c-1<max_c)
+            findPathsAt(grid, new Cell(cell.r-1, cell.c - 1), path, sequence, index + 1);
+        if(r-1>0&&r-1<max_c&&c+1>0&&c+1<max_c)
+            findPathsAt(grid, new Cell(cell.r-1, cell.c + 1), path, sequence, index + 1);
+        if(r+1>0&&r+1<max_c&&c-1>0&&c-1<max_c)
+            findPathsAt(grid, new Cell(cell.r+1, cell.c - 1), path, sequence, index + 1);
+        path.remove(path.size() - 1); // backtrack
 
 
     }
